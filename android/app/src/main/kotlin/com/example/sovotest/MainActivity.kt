@@ -1,4 +1,4 @@
-package com.example.sovotest
+package com.maciejjagodzinski.sovotest
 
 import io.flutter.embedding.android.FlutterActivity
 

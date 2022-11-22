@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "493869368126",
+    "project_id": "sovotest",
+    "storage_bucket": "sovotest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:493869368126:android:bd40c479262325308ea26f",
+        "android_client_info": {
+          "package_name": "com.maciejjagodzinski.sovotest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "493869368126-50gbaurma44r79hi9jm0673iro8ubcti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqTR2wObnQSBOGt2bSUU6rqX_HKzqRBrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "493869368126-50gbaurma44r79hi9jm0673iro8ubcti.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "493869368126-d47d6h3iq70adrtomg01gvq39cckq3r6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.maciejjagodzinski.sovotest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
