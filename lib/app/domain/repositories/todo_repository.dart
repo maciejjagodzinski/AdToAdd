@@ -30,11 +30,19 @@ class ToDoRepository {
     });
   }
 
-  Future<void> addToDoItem({required String task}) async {
-    await toDoRemoteDataSource.addTaskData(task: task);
+  Future<void> addToDoItem({
+    required String task,
+    required int points,
+  }) async {
+    final newPoints = points - 1;
+    await toDoRemoteDataSource.addTaskData(task: task, points: newPoints);
   }
 
-  Future<void> deleteTodoItem({required String documentId}) async {
-    await toDoRemoteDataSource.deleteTaskData(documentId: documentId);
+  Future<void> deleteTodoItem({
+    required String documentId,
+  }) async {
+    await toDoRemoteDataSource.deleteTaskData(
+      documentId: documentId,
+    );
   }
 }

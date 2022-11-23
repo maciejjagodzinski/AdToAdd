@@ -25,7 +25,7 @@ class ToDoRemoteDataSource {
         .snapshots();
   }
 
-  Future<void> addTaskData({required String task}) async {
+  Future<void> addTaskData({required String task, required int points}) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -34,10 +34,17 @@ class ToDoRemoteDataSource {
         .collection('users')
         .doc(userID)
         .collection('tasks')
-        .add({'task': task});
+        .add({'task': task}).whenComplete(() async {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userID)
+          .set({'points': points});
+    });
   }
 
-  Future<void> deleteTaskData({required String documentId}) async {
+  Future<void> deleteTaskData({
+    required String documentId,
+  }) async {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');

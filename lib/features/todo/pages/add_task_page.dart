@@ -5,9 +5,11 @@ import 'package:sovotest/features/todo/cubit/todo_cubit.dart';
 
 class AddTaskPage extends StatelessWidget {
   AddTaskPage({
+    required this.points,
     Key? key,
   }) : super(key: key);
 
+  final int points;
   final taskController = TextEditingController();
 
   @override
@@ -44,9 +46,9 @@ class AddTaskPage extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: () async {
-                        await context
-                            .read<ToDoCubit>()
-                            .addTask(task: taskController.text);
+                        await context.read<ToDoCubit>().addTask(
+                            task: taskController.text,
+                            newPoints: points);
                       },
                       child: Text('Save Task'))
                 ],

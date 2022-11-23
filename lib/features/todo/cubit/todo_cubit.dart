@@ -50,16 +50,10 @@ class ToDoCubit extends Cubit<ToDoState> {
       });
   }
 
-  @override
-  Future<void> close() {
-    streamSubscription?.cancel();
-    return super.close();
-  }
-
-  Future<void> addTask({required String task}) async {
+  Future<void> addTask({required String task, required int newPoints}) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      await toDoRepository.addToDoItem(task: task);
+      await toDoRepository.addToDoItem(task: task, points: newPoints);
       emit(state.copyWith(status: Status.success));
     } catch (error) {
       emit(state.copyWith(status: Status.error));
@@ -74,5 +68,11 @@ class ToDoCubit extends Cubit<ToDoState> {
     } catch (error) {
       emit(state.copyWith(status: Status.error));
     }
+  }
+
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
   }
 }
