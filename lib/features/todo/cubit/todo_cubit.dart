@@ -65,4 +65,14 @@ class ToDoCubit extends Cubit<ToDoState> {
       emit(state.copyWith(status: Status.error));
     }
   }
+
+  Future<void> removeTask({required String documentId}) async {
+    emit(state.copyWith(status: Status.loading));
+    try {
+      await toDoRepository.deleteTodoItem(documentId: documentId);
+      emit(state.copyWith(status: Status.success));
+    } catch (error) {
+      emit(state.copyWith(status: Status.error));
+    }
+  }
 }

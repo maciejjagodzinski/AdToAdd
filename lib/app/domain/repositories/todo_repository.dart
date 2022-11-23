@@ -33,4 +33,8 @@ class ToDoRepository {
   Future<void> addToDoItem({required String task}) async {
     await toDoRemoteDataSource.addTaskData(task: task);
   }
+
+  Future<void> deleteTodoItem({required String documentId}) async {
+    await toDoRemoteDataSource.deleteTaskData(documentId: documentId);
+  }
 }
