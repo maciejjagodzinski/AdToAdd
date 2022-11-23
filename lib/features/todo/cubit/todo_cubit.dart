@@ -12,11 +12,11 @@ part 'todo_cubit.freezed.dart';
 class ToDoCubit extends Cubit<ToDoState> {
   ToDoCubit({required this.toDoRepository})
       : super(const ToDoState(
-          toDoItemModels: [],
-          points: 0,
-          status: Status.initial,
-          errorMessage: null,
-        ));
+            toDoItemModels: [],
+            points: 0,
+            status: Status.initial,
+            errorMessage: null,
+            saved: false));
 
   final ToDoRepository toDoRepository;
   StreamSubscription? streamSubscription;
@@ -50,23 +50,43 @@ class ToDoCubit extends Cubit<ToDoState> {
       });
   }
 
-  Future<void> addTask({required String task, required int newPoints}) async {
+  Future<void> addTask({
+    required String task,
+    required int newPoints,
+  }) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      await toDoRepository.addToDoItem(task: task, points: newPoints);
-      emit(state.copyWith(status: Status.success));
+      await toDoRepository.addToDoItem(
+        task: task,
+        points: newPoints,
+      );
+      emit(state.copyWith(
+        status: Status.success,
+        saved: true,
+      ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      emit(state.copyWith(
+        status: Status.error,
+        errorMessage: error.toString(),
+      ));
     }
   }
 
   Future<void> removeTask({required String documentId}) async {
-    emit(state.copyWith(status: Status.loading));
+    emit(state.copyWith(
+      status: Status.loading,
+    ));
     try {
       await toDoRepository.deleteTodoItem(documentId: documentId);
-      emit(state.copyWith(status: Status.success));
+      emit(state.copyWith(
+        status: Status.success,
+        saved: true,
+      ));
     } catch (error) {
-      emit(state.copyWith(status: Status.error));
+      emit(state.copyWith(
+        status: Status.error,
+        errorMessage: error.toString(),
+      ));
     }
   }
 

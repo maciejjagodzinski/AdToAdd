@@ -18,68 +18,86 @@ class ToDoPage extends StatelessWidget {
       create: (context) {
         return getIt()..getToDoItems();
       },
-      child: BlocBuilder<ToDoCubit, ToDoState>(
-        builder: (context, state) {
-          final toDoItemModels = state.toDoItemModels;
-
+      child: BlocListener<ToDoCubit, ToDoState>(
+        listener: (context, state) {
           if (state.status == Status.error) {
-            final errorMessage =
-                state.errorMessage ?? "Failed for unknown reason";
+            final errorMessage = state.errorMessage ?? "Error";
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(
+                errorMessage,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              duration: const Duration(seconds: 5),
+              backgroundColor: Colors.red[200],
+            ));
+          }
+        },
+        child: BlocBuilder<ToDoCubit, ToDoState>(
+          builder: (context, state) {
+            final toDoItemModels = state.toDoItemModels;
+
+            if (state.status == Status.loading) {
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+
             return Scaffold(
-              body: Center(
-                child: Text('Error...$errorMessage',
-                    style: Theme.of(context).textTheme.headlineMedium),
+              appBar: AppBar(
+                title: const Text('To DOs'),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      context.read<RootCubit>().signOut();
+                    },
+                    icon: const Icon(Icons.logout),
+                  )
+                ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  if (state.points > 0) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => AddTaskPage(
+                            points: state.points,
+                          )),
+                    ));
+                  }
+                },
+                child: const Icon(Icons.add),
+              ),
+              body: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                        'You are logged in as ${context.read<RootCubit>().state.user!.email}'),
+                  ),
+                  Text('You can add ${state.points} tasks'),
+                  if (state.points <= 0)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('Watch add to gain points')),
+                    )
+                  else
+                    const SizedBox(height: 40),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: toDoItemModels.length,
+                      itemBuilder: (context, index) {
+                        return ToDoWidget(toDoItemModel: toDoItemModels[index]);
+                      },
+                    ),
+                  )
+                ],
               ),
             );
-          }
-          if (state.status == Status.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('To DOs'),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    context.read<RootCubit>().signOut();
-                  },
-                  icon: const Icon(Icons.logout),
-                )
-              ],
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: ((context) => AddTaskPage(
-                        points: state.points,
-                      )),
-                ));
-              },
-              child: const Icon(Icons.add),
-            ),
-            body: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                      'You are logged in as ${context.read<RootCubit>().state.user!.email}'),
-                ),
-                Text('You can add ${state.points} tasks'),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: toDoItemModels.length,
-                    itemBuilder: (context, index) {
-                      return ToDoWidget(toDoItemModel: toDoItemModels[index]);
-                    },
-                  ),
-                )
-              ],
-            ),
-          );
-        },
+          },
+        ),
       ),
     );
   }

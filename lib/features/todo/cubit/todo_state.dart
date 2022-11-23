@@ -7,5 +7,6 @@ class ToDoState with _$ToDoState {
     required int points,
     required Status status,
     String? errorMessage,
+    required bool saved,
   }) = _ToDoState;
 }

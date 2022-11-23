@@ -20,6 +20,7 @@ mixin _$ToDoState {
   int get points => throw _privateConstructorUsedError;
   Status get status => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  bool get saved => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ToDoStateCopyWith<ToDoState> get copyWith =>
@@ -35,7 +36,8 @@ abstract class $ToDoStateCopyWith<$Res> {
       {List<ToDoItemModel> toDoItemModels,
       int points,
       Status status,
-      String? errorMessage});
+      String? errorMessage,
+      bool saved});
 }
 
 /// @nodoc
@@ -55,6 +57,7 @@ class _$ToDoStateCopyWithImpl<$Res, $Val extends ToDoState>
     Object? points = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? saved = null,
   }) {
     return _then(_value.copyWith(
       toDoItemModels: null == toDoItemModels
@@ -73,6 +76,10 @@ class _$ToDoStateCopyWithImpl<$Res, $Val extends ToDoState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      saved: null == saved
+          ? _value.saved
+          : saved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -88,7 +95,8 @@ abstract class _$$_ToDoStateCopyWith<$Res> implements $ToDoStateCopyWith<$Res> {
       {List<ToDoItemModel> toDoItemModels,
       int points,
       Status status,
-      String? errorMessage});
+      String? errorMessage,
+      bool saved});
 }
 
 /// @nodoc
@@ -106,6 +114,7 @@ class __$$_ToDoStateCopyWithImpl<$Res>
     Object? points = null,
     Object? status = null,
     Object? errorMessage = freezed,
+    Object? saved = null,
   }) {
     return _then(_$_ToDoState(
       toDoItemModels: null == toDoItemModels
@@ -124,6 +133,10 @@ class __$$_ToDoStateCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      saved: null == saved
+          ? _value.saved
+          : saved // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -135,7 +148,8 @@ class _$_ToDoState implements _ToDoState {
       {required final List<ToDoItemModel> toDoItemModels,
       required this.points,
       required this.status,
-      this.errorMessage})
+      this.errorMessage,
+      required this.saved})
       : _toDoItemModels = toDoItemModels;
 
   final List<ToDoItemModel> _toDoItemModels;
@@ -151,10 +165,12 @@ class _$_ToDoState implements _ToDoState {
   final Status status;
   @override
   final String? errorMessage;
+  @override
+  final bool saved;
 
   @override
   String toString() {
-    return 'ToDoState(toDoItemModels: $toDoItemModels, points: $points, status: $status, errorMessage: $errorMessage)';
+    return 'ToDoState(toDoItemModels: $toDoItemModels, points: $points, status: $status, errorMessage: $errorMessage, saved: $saved)';
   }
 
   @override
@@ -167,7 +183,8 @@ class _$_ToDoState implements _ToDoState {
             (identical(other.points, points) || other.points == points) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.saved, saved) || other.saved == saved));
   }
 
   @override
@@ -176,7 +193,8 @@ class _$_ToDoState implements _ToDoState {
       const DeepCollectionEquality().hash(_toDoItemModels),
       points,
       status,
-      errorMessage);
+      errorMessage,
+      saved);
 
   @JsonKey(ignore: true)
   @override
@@ -190,7 +208,8 @@ abstract class _ToDoState implements ToDoState {
       {required final List<ToDoItemModel> toDoItemModels,
       required final int points,
       required final Status status,
-      final String? errorMessage}) = _$_ToDoState;
+      final String? errorMessage,
+      required final bool saved}) = _$_ToDoState;
 
   @override
   List<ToDoItemModel> get toDoItemModels;
@@ -200,6 +219,8 @@ abstract class _ToDoState implements ToDoState {
   Status get status;
   @override
   String? get errorMessage;
+  @override
+  bool get saved;
   @override
   @JsonKey(ignore: true)
   _$$_ToDoStateCopyWith<_$_ToDoState> get copyWith =>
