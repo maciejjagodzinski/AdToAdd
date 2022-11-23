@@ -15,7 +15,7 @@ class ToDoPage extends StatelessWidget {
     adManager.addAds(true, true, true);
   }
 
-  final adManager = AdsRepository();
+  final adManager = AdsRepository(toDoRemoteDataSource: getIt());
 
   @override
   Widget build(BuildContext context) {

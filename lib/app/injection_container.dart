@@ -18,7 +18,7 @@ void configureDependecies() {
   getIt.registerFactory(() => ToDoRepository(
         toDoRemoteDataSource: getIt(),
       ));
-  getIt.registerFactory(() => AdsRepository());
+  getIt.registerFactory(() => AdsRepository(toDoRemoteDataSource: getIt()));
 
   //data sources
   getIt.registerFactory(() => ToDoRemoteDataSource());

@@ -56,4 +56,15 @@ class ToDoRemoteDataSource {
         .doc(documentId)
         .delete();
   }
+
+  Future<void> addTaskPoints() async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .set({'points': 3});
+  }
 }

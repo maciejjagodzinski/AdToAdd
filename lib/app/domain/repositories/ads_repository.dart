@@ -1,10 +1,16 @@
 import 'dart:io';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:sovotest/remote_data_sources/todo_remote_data_source.dart';
 
 class AdsRepository {
+  AdsRepository({
+    required this.toDoRemoteDataSource,
+  });
   BannerAd? _bannerAd;
   InterstitialAd? _interstitialAd;
   RewardedAd? _rewardedAd;
+
+  final ToDoRemoteDataSource toDoRemoteDataSource;
 
   void loadRewardedAd() {
     RewardedAd.load(
@@ -29,20 +35,20 @@ class AdsRepository {
   void showRewardedAd() {
     if (_rewardedAd != null) {
       _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-          onAdShowedFullScreenContent: (RewardedAd ad) {
-        print("Ad onAdShowedFullScreenContent");
-      }, onAdDismissedFullScreenContent: (RewardedAd ad) {
-        ad.dispose();
-        loadRewardedAd();
-      }, onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
-        ad.dispose();
-        loadRewardedAd();
-      });
+          onAdShowedFullScreenContent: (RewardedAd ad) {},
+          onAdDismissedFullScreenContent: (RewardedAd ad) {
+            ad.dispose();
+            loadRewardedAd();
+          },
+          onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
+            ad.dispose();
+            loadRewardedAd();
+          });
 
       _rewardedAd!.setImmersiveMode(true);
       _rewardedAd!.show(
           onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
-        print("${reward.amount} ${reward.type}");
+        toDoRemoteDataSource.addTaskPoints();
       });
     }
   }
