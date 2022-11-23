@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sovotest/app/core/enums.dart';
@@ -97,10 +98,15 @@ class RootCubit extends Cubit<RootState> {
     String passwordController,
   ) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController,
-        password: passwordController,
-      );
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: emailController,
+            password: passwordController,
+          )
+          .then((userCredential) => FirebaseFirestore.instance
+              .collection('users')
+              .doc(userCredential.user?.uid)
+              .set({'points': 3}));
     } on FirebaseAuthException catch (error) {
       emit(RootState(
         user: null,

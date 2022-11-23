@@ -4,7 +4,7 @@ import 'package:sovotest/app/core/enums.dart';
 import 'package:sovotest/app/injection_container.dart';
 import 'package:sovotest/features/cubit/root_cubit.dart';
 import 'package:sovotest/features/login/pages/login_page.dart';
-import 'package:sovotest/features/todo/pages/to_do_page.dart';
+import 'package:sovotest/features/todo/pages/todo_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
