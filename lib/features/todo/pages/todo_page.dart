@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sovotest/app/domain/repositories/ads_repository.dart';
 import 'package:sovotest/app/core/enums.dart';
 import 'package:sovotest/app/injection_container.dart';
 import 'package:sovotest/features/cubit/root_cubit.dart';
@@ -8,9 +9,13 @@ import 'package:sovotest/features/todo/pages/add_task_page.dart';
 import 'package:sovotest/features/todo/widgets/todo_widget.dart';
 
 class ToDoPage extends StatelessWidget {
-  const ToDoPage({
+  ToDoPage({
     Key? key,
-  }) : super(key: key);
+  }) : super(key: key) {
+    adManager.addAds(true, true, true);
+  }
+
+  final adManager = AdsRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +85,9 @@ class ToDoPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            adManager.showRewardedAd();
+                          },
                           child: const Text('Watch add to gain points')),
                     )
                   else

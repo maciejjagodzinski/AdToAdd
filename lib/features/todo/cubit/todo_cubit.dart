@@ -10,8 +10,9 @@ part 'todo_state.dart';
 part 'todo_cubit.freezed.dart';
 
 class ToDoCubit extends Cubit<ToDoState> {
-  ToDoCubit({required this.toDoRepository})
-      : super(const ToDoState(
+  ToDoCubit({
+    required this.toDoRepository,
+  }) : super(const ToDoState(
             toDoItemModels: [],
             points: 0,
             status: Status.initial,
