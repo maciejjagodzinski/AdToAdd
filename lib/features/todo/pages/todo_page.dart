@@ -4,6 +4,7 @@ import 'package:sovotest/app/core/enums.dart';
 import 'package:sovotest/app/injection_container.dart';
 import 'package:sovotest/features/cubit/root_cubit.dart';
 import 'package:sovotest/features/todo/cubit/todo_cubit.dart';
+import 'package:sovotest/features/todo/pages/add_task_page.dart';
 import 'package:sovotest/features/todo/widgets/todo_widget.dart';
 
 class ToDoPage extends StatelessWidget {
@@ -49,25 +50,31 @@ class ToDoPage extends StatelessWidget {
                 )
               ],
             ),
-            body: Center(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                        'You are logged in as ${context.read<RootCubit>().state.user!.email}'),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => AddTaskPage()),
+                ));
+              },
+              child: const Icon(Icons.add),
+            ),
+            body: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      'You are logged in as ${context.read<RootCubit>().state.user!.email}'),
+                ),
+                Text('You can add ${state.points} tasks'),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: toDoItemModels.length,
+                    itemBuilder: (context, index) {
+                      return ToDoWidget(toDoItemModel: toDoItemModels[index]);
+                    },
                   ),
-                  Text('You can add ${state.points} tasks'),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: toDoItemModels.length,
-                      itemBuilder: (context, index) {
-                        return ToDoWidget(toDoItemModel: toDoItemModels[index]);
-                      },
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           );
         },

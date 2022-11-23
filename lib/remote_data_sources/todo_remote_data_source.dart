@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ToDoRemoteDataSource {
-  Future<QuerySnapshot<Map<String, dynamic>>> getRemoteTasksData() async {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getRemoteTasksData() {
     final userID = FirebaseAuth.instance.currentUser?.uid;
     if (userID == null) {
       throw Exception('User is not logged in');
@@ -11,7 +11,7 @@ class ToDoRemoteDataSource {
         .collection('users')
         .doc(userID)
         .collection('tasks')
-        .get();
+        .snapshots();
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getRemotePointsData() {
@@ -23,5 +23,17 @@ class ToDoRemoteDataSource {
         .collection('users')
         .doc(userID)
         .snapshots();
+  }
+
+  Future<void> addTaskData({required String task}) async {
+    final userID = FirebaseAuth.instance.currentUser?.uid;
+    if (userID == null) {
+      throw Exception('User is not logged in');
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userID)
+        .collection('tasks')
+        .add({'task': task});
   }
 }

@@ -8,14 +8,16 @@ class ToDoRepository {
   });
   final ToDoRemoteDataSource toDoRemoteDataSource;
 
-  Future<List<ToDoItemModel>> getToDoModels() async {
-    final tasksData = await toDoRemoteDataSource.getRemoteTasksData();
-    return tasksData.docs
-        .map((doc) => ToDoItemModel(
-              task: doc['task'],
-              taskDocumentId: doc.id,
-            ))
-        .toList();
+  Stream<List<ToDoItemModel>> getToDoModels() {
+    final tasksData = toDoRemoteDataSource.getRemoteTasksData();
+    return tasksData.map((querySnapshot) {
+      return querySnapshot.docs.map((doc) {
+        return ToDoItemModel(
+          task: doc['task'],
+          taskDocumentId: doc.id,
+        );
+      }).toList();
+    });
   }
 
   Stream<PointsModel> getPointsStream() {
@@ -26,5 +28,9 @@ class ToDoRepository {
         userDocumentId: doc.id,
       );
     });
+  }
+
+  Future<void> addToDoItem({required String task}) async {
+    await toDoRemoteDataSource.addTaskData(task: task);
   }
 }

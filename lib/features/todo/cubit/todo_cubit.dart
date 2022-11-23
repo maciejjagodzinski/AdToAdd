@@ -22,24 +22,17 @@ class ToDoCubit extends Cubit<ToDoState> {
   StreamSubscription? streamSubscription;
 
   Future<void> getToDoItems() async {
-    emit(const ToDoState(
-      toDoItemModels: [],
-      points: 0,
-      status: Status.loading,
-      errorMessage: null,
-    ));
+    emit(state.copyWith(status: Status.loading));
     try {
-      final toDoItemModels = await toDoRepository.getToDoModels();
-      emit(ToDoState(
-        toDoItemModels: toDoItemModels,
-        points: 0,
-        status: Status.success,
-        errorMessage: null,
-      ));
+      streamSubscription =
+          toDoRepository.getToDoModels().listen((toDoItemModels) {
+        emit(state.copyWith(
+          status: Status.success,
+          toDoItemModels: toDoItemModels,
+        ));
+      });
     } catch (error) {
-      emit(ToDoState(
-        toDoItemModels: [],
-        points: 0,
+      emit(state.copyWith(
         status: Status.error,
         errorMessage: error.toString(),
       ));
@@ -61,5 +54,15 @@ class ToDoCubit extends Cubit<ToDoState> {
   Future<void> close() {
     streamSubscription?.cancel();
     return super.close();
+  }
+
+  Future<void> addTask({required String task}) async {
+    emit(state.copyWith(status: Status.loading));
+    try {
+      await toDoRepository.addToDoItem(task: task);
+      emit(state.copyWith(status: Status.success));
+    } catch (error) {
+      emit(state.copyWith(status: Status.error));
+    }
   }
 }
