@@ -4,7 +4,7 @@ import 'package:sovotest/app/core/enums.dart';
 import 'package:sovotest/app/injection_container.dart';
 import 'package:sovotest/features/cubit/root_cubit.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   LoginPage({
     Key? key,
   }) : super(key: key);
@@ -12,11 +12,6 @@ class LoginPage extends StatefulWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RootCubit>(
@@ -58,12 +53,12 @@ class _LoginPageState extends State<LoginPage> {
                         height: 20,
                       ),
                       TextField(
-                        controller: widget.emailController,
+                        controller: emailController,
                         decoration: const InputDecoration(
                             hintText: 'Enter your e-mail'),
                       ),
                       TextField(
-                        controller: widget.passwordController,
+                        controller: passwordController,
                         obscureText: true,
                         decoration: const InputDecoration(
                             hintText: 'Enter your passsword'),
@@ -77,14 +72,14 @@ class _LoginPageState extends State<LoginPage> {
                             await context
                                 .read<RootCubit>()
                                 .createUserWithEmailAndPassword(
-                                    widget.emailController.text,
-                                    widget.passwordController.text);
+                                    emailController.text,
+                                    passwordController.text);
                           } else {
                             await context
                                 .read<RootCubit>()
                                 .signInWithEmailAndPassword(
-                                    widget.emailController.text,
-                                    widget.passwordController.text);
+                                    emailController.text,
+                                    passwordController.text);
                           }
                         },
                         child: Text(
