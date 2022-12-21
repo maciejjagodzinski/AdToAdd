@@ -1,8 +1,8 @@
 # sovotest
 
-Manage your tasks with this simple "To Do" type app./
-Integrated Firebase Firestore and Authentication./
-Ads integrated with Google AdMob./
+Manage your tasks with this simple "To Do" type app.\
+Integrated Firebase Firestore and Authentication.\
+Ads integrated with Google AdMob.\
 
 Add the most important task and keep track of it.
 
