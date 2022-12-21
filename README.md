@@ -3,6 +3,7 @@
 Manage your tasks with this simple "To Do" type app.\
 Integrated Firebase Firestore and Authentication.\
 Ads integrated with Google AdMob.\
+BLoC architecture + Flutter BLoC (Cubit) used as a state management tool.
 
 Add the most important task and keep track of it.
 
