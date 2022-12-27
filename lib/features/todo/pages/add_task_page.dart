@@ -68,7 +68,7 @@ class AddTaskPage extends StatelessWidget {
                           await context.read<ToDoCubit>().addTask(
                               task: taskController.text, newPoints: points);
                         },
-                        child: Text('Save Task'))
+                        child: const Text('Save Task'))
                   ],
                 ),
               );

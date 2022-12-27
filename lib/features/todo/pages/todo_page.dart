@@ -61,17 +61,18 @@ class ToDoPage extends StatelessWidget {
                   )
                 ],
               ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  if (state.points > 0) {
+              floatingActionButton: Visibility(
+                visible: state.points > 0,
+                child: FloatingActionButton(
+                  onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: ((context) => AddTaskPage(
                             points: state.points,
                           )),
                     ));
-                  }
-                },
-                child: const Icon(Icons.add),
+                  },
+                  child: const Icon(Icons.add),
+                ),
               ),
               body: Column(
                 children: [
