@@ -22,6 +22,8 @@ ToDoItemModel _$ToDoItemModelFromJson(Map<String, dynamic> json) {
 mixin _$ToDoItemModel {
   @JsonKey(name: 'task')
   String get task => throw _privateConstructorUsedError;
+  @JsonKey(name: 'addTime')
+  DateTime get addTime => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: '')
   String get taskDocumentId => throw _privateConstructorUsedError;
 
@@ -39,6 +41,7 @@ abstract class $ToDoItemModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'task') String task,
+      @JsonKey(name: 'addTime') DateTime addTime,
       @JsonKey(defaultValue: '') String taskDocumentId});
 }
 
@@ -56,6 +59,7 @@ class _$ToDoItemModelCopyWithImpl<$Res, $Val extends ToDoItemModel>
   @override
   $Res call({
     Object? task = null,
+    Object? addTime = null,
     Object? taskDocumentId = null,
   }) {
     return _then(_value.copyWith(
@@ -63,6 +67,10 @@ class _$ToDoItemModelCopyWithImpl<$Res, $Val extends ToDoItemModel>
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as String,
+      addTime: null == addTime
+          ? _value.addTime
+          : addTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       taskDocumentId: null == taskDocumentId
           ? _value.taskDocumentId
           : taskDocumentId // ignore: cast_nullable_to_non_nullable
@@ -81,6 +89,7 @@ abstract class _$$_ToDoItemModelCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'task') String task,
+      @JsonKey(name: 'addTime') DateTime addTime,
       @JsonKey(defaultValue: '') String taskDocumentId});
 }
 
@@ -96,6 +105,7 @@ class __$$_ToDoItemModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? task = null,
+    Object? addTime = null,
     Object? taskDocumentId = null,
   }) {
     return _then(_$_ToDoItemModel(
@@ -103,6 +113,10 @@ class __$$_ToDoItemModelCopyWithImpl<$Res>
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
               as String,
+      addTime: null == addTime
+          ? _value.addTime
+          : addTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       taskDocumentId: null == taskDocumentId
           ? _value.taskDocumentId
           : taskDocumentId // ignore: cast_nullable_to_non_nullable
@@ -116,6 +130,7 @@ class __$$_ToDoItemModelCopyWithImpl<$Res>
 class _$_ToDoItemModel implements _ToDoItemModel {
   _$_ToDoItemModel(
       {@JsonKey(name: 'task') required this.task,
+      @JsonKey(name: 'addTime') required this.addTime,
       @JsonKey(defaultValue: '') required this.taskDocumentId});
 
   factory _$_ToDoItemModel.fromJson(Map<String, dynamic> json) =>
@@ -125,12 +140,15 @@ class _$_ToDoItemModel implements _ToDoItemModel {
   @JsonKey(name: 'task')
   final String task;
   @override
+  @JsonKey(name: 'addTime')
+  final DateTime addTime;
+  @override
   @JsonKey(defaultValue: '')
   final String taskDocumentId;
 
   @override
   String toString() {
-    return 'ToDoItemModel(task: $task, taskDocumentId: $taskDocumentId)';
+    return 'ToDoItemModel(task: $task, addTime: $addTime, taskDocumentId: $taskDocumentId)';
   }
 
   @override
@@ -139,13 +157,14 @@ class _$_ToDoItemModel implements _ToDoItemModel {
         (other.runtimeType == runtimeType &&
             other is _$_ToDoItemModel &&
             (identical(other.task, task) || other.task == task) &&
+            (identical(other.addTime, addTime) || other.addTime == addTime) &&
             (identical(other.taskDocumentId, taskDocumentId) ||
                 other.taskDocumentId == taskDocumentId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, task, taskDocumentId);
+  int get hashCode => Object.hash(runtimeType, task, addTime, taskDocumentId);
 
   @JsonKey(ignore: true)
   @override
@@ -164,6 +183,7 @@ class _$_ToDoItemModel implements _ToDoItemModel {
 abstract class _ToDoItemModel implements ToDoItemModel {
   factory _ToDoItemModel(
           {@JsonKey(name: 'task') required final String task,
+          @JsonKey(name: 'addTime') required final DateTime addTime,
           @JsonKey(defaultValue: '') required final String taskDocumentId}) =
       _$_ToDoItemModel;
 
@@ -173,6 +193,9 @@ abstract class _ToDoItemModel implements ToDoItemModel {
   @override
   @JsonKey(name: 'task')
   String get task;
+  @override
+  @JsonKey(name: 'addTime')
+  DateTime get addTime;
   @override
   @JsonKey(defaultValue: '')
   String get taskDocumentId;

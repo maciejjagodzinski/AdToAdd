@@ -11,6 +11,7 @@ class ToDoRemoteDataSource {
         .collection('users')
         .doc(userID)
         .collection('tasks')
+        .orderBy('addTime')
         .snapshots();
   }
 
@@ -34,7 +35,10 @@ class ToDoRemoteDataSource {
         .collection('users')
         .doc(userID)
         .collection('tasks')
-        .add({'task': task}).whenComplete(() async {
+        .add({
+      'task': task,
+      'addTime': DateTime.now(),
+    }).whenComplete(() async {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userID)

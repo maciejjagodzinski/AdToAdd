@@ -14,6 +14,7 @@ class ToDoRepository {
       return querySnapshot.docs.map((doc) {
         return ToDoItemModel(
           task: doc['task'],
+          addTime: doc['addTime'].toDate(),
           taskDocumentId: doc.id,
         );
       }).toList();

@@ -7,6 +7,7 @@ part 'todo_item_model.freezed.dart';
 class ToDoItemModel with _$ToDoItemModel {
   factory ToDoItemModel({
     @JsonKey(name: 'task') required String task,
+    @JsonKey(name: 'addTime') required DateTime addTime,
     @JsonKey(defaultValue: '') required String taskDocumentId,
   }) = _ToDoItemModel;
 
