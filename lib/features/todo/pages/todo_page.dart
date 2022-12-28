@@ -86,10 +86,11 @@ class ToDoPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
-                          onPressed: () {
-                            adManager.showRewardedAd();
-                          },
-                          child: const Text('Watch add to gain points')),
+                        onPressed: () {
+                          adManager.showRewardedAd();
+                        },
+                        child: const Text('Watch ad to add tasks'),
+                      ),
                     )
                   else
                     const SizedBox(height: 40),
