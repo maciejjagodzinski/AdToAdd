@@ -1,4 +1,4 @@
-# sovotest
+# AdToAdd
 
 Manage your tasks with this simple "To Do" type app.\
 Integrated Firebase Firestore and Authentication.\
